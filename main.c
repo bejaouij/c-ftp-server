@@ -133,6 +133,18 @@ void* t_communication(MessageTransmissionParams* params) {
                 char* cmd = FILE_LISTING_COMMAND;
 
                 _executeCommand(cmd, commandBuffer);
+            } else if(strncmp(commandBuffer, "put ", 4)) {
+                char filename[COMMAND_BUFFER_MAX_LENGTH];
+                int i = 4;
+
+                while(commandBuffer[i] != ' ' && commandBuffer[i] != '\n') {
+                    filename[i - 4] = commandBuffer[i];
+                    i++;
+                }
+
+                filename[i] = '\0';
+
+                FILE* pfile = fopen(filename, "w");
             }
 
             strcpy(messageBuffer, commandBuffer);
